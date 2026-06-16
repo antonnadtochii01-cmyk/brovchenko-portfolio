@@ -17,12 +17,24 @@ html{scroll-behavior:smooth;scroll-padding-top:74px;}
 body{margin:0;background:#0B0A0F;}
 @keyframes bbmarq{from{transform:translateX(0);}to{transform:translateX(-50%);}}
 ::selection{background:#8B5CF6;color:#0B0A0F;}
+:root{--pad:40px;--hero-top:150px;}
+@media(max-width:680px){
+  :root{--pad:18px;--hero-top:90px;}
+  .bb-proj-no,.bb-proj-role{display:none!important;}
+  .bb-proj-grid{grid-template-columns:minmax(0,1fr) 36px!important;gap:10px!important;}
+  .bb-panel-grid{grid-template-columns:minmax(0,1fr)!important;}
+  .bb-strip-item{height:140px!important;}
+  .bb-strip-img{height:140px!important;}
+  header nav{gap:16px!important;}
+  #work,#music,#digital{padding-top:60px!important;}
+  #contact{padding-top:72px!important;padding-bottom:48px!important;}
+}
 </style>
 </helmet>
 <div id="bb-root" style="background:#0B0A0F;color:#EDEAF4;min-height:100vh;font-family:'Bricolage Grotesque',sans-serif;-webkit-font-smoothing:antialiased;position:relative;overflow-x:hidden;">
 
   <header style="position:fixed;top:0;left:0;right:0;z-index:80;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);background:rgba(11,10,15,.78);border-bottom:1px solid rgba(237,234,244,.12);">
-    <div style="max-width:1540px;margin:0 auto;padding:14px 40px;display:flex;justify-content:space-between;align-items:center;font-family:'Space Mono',monospace;font-size:12px;letter-spacing:.14em;text-transform:uppercase;">
+    <div style="max-width:1540px;margin:0 auto;padding:14px var(--pad);display:flex;justify-content:space-between;align-items:center;font-family:'Space Mono',monospace;font-size:12px;letter-spacing:.14em;text-transform:uppercase;">
       <a href="#top" data-cursor="Top" style="text-decoration:none;color:#EDEAF4;font-weight:700;cursor:none;">B. Brovchenko</a>
       <nav style="display:flex;gap:28px;">
         <a href="#work" data-cursor="Go" style="text-decoration:none;color:#EDEAF4;cursor:none;">Work</a>
@@ -33,8 +45,8 @@ body{margin:0;background:#0B0A0F;}
     </div>
   </header>
 
-  <div id="top" style="max-width:1540px;margin:0 auto;padding:0 40px;">
-    <section style="padding:150px 0 40px;">
+  <div id="top" style="max-width:1540px;margin:0 auto;padding:0 var(--pad);">
+    <section style="padding:var(--hero-top) 0 40px;">
       <div data-reveal style="font-family:'Space Mono',monospace;font-size:12px;letter-spacing:.18em;text-transform:uppercase;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;opacity:.6;margin-bottom:34px;">
         <span>Art Direction — Styling — Visual Storytelling</span><span>Paris, FR</span>
       </div>
@@ -46,14 +58,14 @@ body{margin:0;background:#0B0A0F;}
   <div style="overflow:hidden;border-top:1px solid rgba(237,234,244,.16);border-bottom:1px solid rgba(237,234,244,.16);margin-top:46px;">
     <div style="display:flex;width:max-content;animation:bbmarq 46s linear infinite;">
       <sc-for list="{{ strip }}" as="s" hint-placeholder-count="12">
-        <div style="height:232px;flex:0 0 auto;border-right:1px solid rgba(237,234,244,.16);">
-          <img src="{{ s }}" alt="" style="display:block;height:232px;width:auto;object-fit:cover;"/>
+        <div class="bb-strip-item" style="height:232px;flex:0 0 auto;border-right:1px solid rgba(237,234,244,.16);">
+          <img src="{{ s }}" alt="" class="bb-strip-img" style="display:block;height:232px;width:auto;object-fit:cover;"/>
         </div>
       </sc-for>
     </div>
   </div>
 
-  <div style="max-width:1540px;margin:0 auto;padding:0 40px;">
+  <div style="max-width:1540px;margin:0 auto;padding:0 var(--pad);">
 
     <div id="work" data-reveal style="display:flex;justify-content:space-between;align-items:baseline;padding:104px 0 12px;border-bottom:2px solid #EDEAF4;">
       <h2 style="margin:0;font-family:'Bricolage Grotesque',sans-serif;font-weight:600;font-size:clamp(26px,3.6vw,50px);letter-spacing:-.025em;">Fashion Editorials</h2>
@@ -62,18 +74,18 @@ body{margin:0;background:#0B0A0F;}
     <sc-for list="{{ editorials }}" as="p" hint-placeholder-count="5">
       <div data-reveal data-cover="{{ p.cover }}" data-open="{{ p.openAttr }}" style="border-top:1px solid rgba(237,234,244,.16);">
         <button data-cursor="{{ p.cursorLabel }}" onClick="{{ p.onToggle }}" style="appearance:none;-webkit-appearance:none;width:100%;background:none;border:0;padding:0;margin:0;text-align:left;color:#EDEAF4;font-family:inherit;cursor:none;display:block;transition:color .35s ease;" style-hover="color:var(--ac,#8B5CF6)">
-          <div style="display:grid;grid-template-columns:60px minmax(0,1fr) clamp(110px,15vw,210px) 40px;gap:18px;align-items:start;padding:26px 0;">
-            <span style="font-family:'Space Mono',monospace;font-size:12px;letter-spacing:.12em;padding-top:16px;color:#EDEAF4;opacity:.45;">{{ p.no }}</span>
+          <div class="bb-proj-grid" style="display:grid;grid-template-columns:60px minmax(0,1fr) clamp(110px,15vw,210px) 40px;gap:18px;align-items:start;padding:26px 0;">
+            <span class="bb-proj-no" style="font-family:'Space Mono',monospace;font-size:12px;letter-spacing:.12em;padding-top:16px;color:#EDEAF4;opacity:.45;">{{ p.no }}</span>
             <span style="display:block;">
               <span style="display:block;font-family:'Bricolage Grotesque',sans-serif;font-weight:600;font-size:clamp(28px,5.2vw,66px);line-height:.93;letter-spacing:-.028em;transition:transform .45s cubic-bezier(.16,1,.3,1);" style-hover="transform:translateX(16px)">{{ p.title }}</span>
               <span style="display:block;margin-top:11px;font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#EDEAF4;opacity:.5;">{{ p.context }}</span>
             </span>
-            <span style="font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#EDEAF4;opacity:.62;padding-top:18px;line-height:1.6;white-space:pre-line;">{{ p.role }}</span>
+            <span class="bb-proj-role" style="font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#EDEAF4;opacity:.62;padding-top:18px;line-height:1.6;white-space:pre-line;">{{ p.role }}</span>
             <span style="font-family:'Bricolage Grotesque',sans-serif;font-weight:400;font-size:30px;line-height:1;padding-top:10px;text-align:right;color:var(--ac,#8B5CF6);">{{ p.sign }}</span>
           </div>
         </button>
         <div style="overflow:hidden;max-height:{{ p.panelMax }};transition:max-height .7s cubic-bezier(.16,1,.3,1);">
-          <div style="display:grid;grid-template-columns:60px minmax(0,1fr);gap:18px;padding-bottom:64px;">
+          <div class="bb-panel-grid" style="display:grid;grid-template-columns:60px minmax(0,1fr);gap:18px;padding-bottom:64px;">
             <span></span>
             <div>
               <p style="max-width:60ch;margin:0 0 32px;font-family:'Bricolage Grotesque',sans-serif;font-size:clamp(16px,1.5vw,21px);line-height:1.5;letter-spacing:-.01em;">{{ p.desc }}</p>
@@ -104,18 +116,18 @@ body{margin:0;background:#0B0A0F;}
     <sc-for list="{{ music }}" as="p" hint-placeholder-count="3">
       <div data-reveal data-cover="{{ p.cover }}" data-open="{{ p.openAttr }}" style="border-top:1px solid rgba(237,234,244,.16);">
         <button data-cursor="{{ p.cursorLabel }}" onClick="{{ p.onToggle }}" style="appearance:none;-webkit-appearance:none;width:100%;background:none;border:0;padding:0;margin:0;text-align:left;color:#EDEAF4;font-family:inherit;cursor:none;display:block;transition:color .35s ease;" style-hover="color:var(--ac,#8B5CF6)">
-          <div style="display:grid;grid-template-columns:60px minmax(0,1fr) clamp(110px,15vw,210px) 40px;gap:18px;align-items:start;padding:26px 0;">
-            <span style="font-family:'Space Mono',monospace;font-size:12px;letter-spacing:.12em;padding-top:16px;color:#EDEAF4;opacity:.45;">{{ p.no }}</span>
+          <div class="bb-proj-grid" style="display:grid;grid-template-columns:60px minmax(0,1fr) clamp(110px,15vw,210px) 40px;gap:18px;align-items:start;padding:26px 0;">
+            <span class="bb-proj-no" style="font-family:'Space Mono',monospace;font-size:12px;letter-spacing:.12em;padding-top:16px;color:#EDEAF4;opacity:.45;">{{ p.no }}</span>
             <span style="display:block;">
               <span style="display:block;font-family:'Bricolage Grotesque',sans-serif;font-weight:600;font-size:clamp(28px,5.2vw,66px);line-height:.93;letter-spacing:-.028em;transition:transform .45s cubic-bezier(.16,1,.3,1);" style-hover="transform:translateX(16px)">{{ p.title }}</span>
               <span style="display:block;margin-top:11px;font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#EDEAF4;opacity:.5;">{{ p.context }}</span>
             </span>
-            <span style="font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#EDEAF4;opacity:.62;padding-top:18px;line-height:1.6;white-space:pre-line;">{{ p.role }}</span>
+            <span class="bb-proj-role" style="font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#EDEAF4;opacity:.62;padding-top:18px;line-height:1.6;white-space:pre-line;">{{ p.role }}</span>
             <span style="font-family:'Bricolage Grotesque',sans-serif;font-weight:400;font-size:30px;line-height:1;padding-top:10px;text-align:right;color:var(--ac,#8B5CF6);">{{ p.sign }}</span>
           </div>
         </button>
         <div style="overflow:hidden;max-height:{{ p.panelMax }};transition:max-height .7s cubic-bezier(.16,1,.3,1);">
-          <div style="display:grid;grid-template-columns:60px minmax(0,1fr);gap:18px;padding-bottom:64px;">
+          <div class="bb-panel-grid" style="display:grid;grid-template-columns:60px minmax(0,1fr);gap:18px;padding-bottom:64px;">
             <span></span>
             <div>
               <p style="max-width:60ch;margin:0 0 32px;font-family:'Bricolage Grotesque',sans-serif;font-size:clamp(16px,1.5vw,21px);line-height:1.5;letter-spacing:-.01em;">{{ p.desc }}</p>
@@ -240,6 +252,10 @@ class Component extends DCLogic {
   componentDidUpdate() {
     this._setAccent();
     this._initVideos();
+    if (this.state.open) {
+      const prev = document.getElementById('bb-prev');
+      if (prev) { prev.dataset.on = '0'; prev.style.opacity = '0'; }
+    }
   }
 
   _initVideos() {
