@@ -77,6 +77,9 @@ body{margin:0;background:#0B0A0F;}
             <span></span>
             <div>
               <p style="max-width:60ch;margin:0 0 32px;font-family:'Bricolage Grotesque',sans-serif;font-size:clamp(16px,1.5vw,21px);line-height:1.5;letter-spacing:-.01em;">{{ p.desc }}</p>
+              <div style="display:{{ p.videoDisplay }};margin-bottom:32px;background:rgba(237,234,244,.06);overflow:hidden;">
+                <video src="{{ p.videoSrc }}" controls preload="metadata" style="display:block;width:100%;height:auto;max-height:70vh;"></video>
+              </div>
               <div style="columns:3 250px;column-gap:14px;">
                 <sc-for list="{{ p.images }}" as="im" hint-placeholder-count="4">
                   <div style="break-inside:avoid;margin:0 0 14px;background:rgba(237,234,244,.06);overflow:hidden;">
@@ -173,12 +176,12 @@ class Component extends DCLogic {
       context:'For Valentino — Campaign Concept',
       role:'Art Direction\nAI Video\nVideo Editing',
       desc:'A university project created for Valentino, based on the campaign concept \u201CCustodi\u201D. The work explores luxury through memory and emotional value, presenting the Panthea bag as a symbolic guardian of personal objects and memories.',
-      cover:'img_p6_1', images:['img_p6_1','img_p5_1','img_p6_2','img_p6_3'] },
+      cover:'img_p6_1', images:['img_p6_1','img_p5_1','img_p6_2','img_p6_3'], videoSrc:'videos/custodi.mp4' },
     { id:'diesel', no:'03', title:'Diesel \u00D7 Dust',
       context:'For Diesel & DUST Magazine',
       role:'Art Direction\nStyling\nVideo Edit',
       desc:'Created for Diesel and DUST Magazine, this project explores fashion consumption and visual standardization through packaging aesthetics, object presentation and still-life storytelling. The outcome combined two video pieces and a printed flipbook publication of editorial sequencing and motion-based storytelling.',
-      cover:'img_p8_1', images:['img_p8_1','img_p7_1','img_p8_2','img_p8_3','img_p8_4','img_p9_1','img_p9_2','img_p9_3','img_p9_4','img_p9_5','img_p9_6'] },
+      cover:'img_p8_1', images:['img_p8_1','img_p7_1','img_p8_2','img_p8_3','img_p8_4','img_p9_1','img_p9_2','img_p9_3','img_p9_4','img_p9_5','img_p9_6'], videoSrc:'videos/diesel.mp4' },
     { id:'punk', no:'04', title:'Punk Revival',
       context:'Creative Work',
       role:'Art Direction\nStyling',
@@ -322,6 +325,8 @@ class Component extends DCLogic {
       onToggle: () => this.setState((s) => ({ open: s.open === p.id ? null : p.id })),
       youtubeEmbed: p.youtubeId ? 'https://www.youtube.com/embed/' + p.youtubeId : '',
       youtubeDisplay: p.youtubeId ? 'block' : 'none',
+      videoSrc: p.videoSrc || '',
+      videoDisplay: p.videoSrc ? 'block' : 'none',
     });
     return {
       statement: this.props.statement ?? 'Paris-based creative working across fashion imagery, styling, music visuals and experimental direction \u2014 interested in emotional image-making, atmosphere and visual storytelling.',
