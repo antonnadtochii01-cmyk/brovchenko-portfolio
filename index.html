@@ -112,6 +112,9 @@ body{margin:0;background:#0B0A0F;}
             <span></span>
             <div>
               <p style="max-width:60ch;margin:0 0 32px;font-family:'Bricolage Grotesque',sans-serif;font-size:clamp(16px,1.5vw,21px);line-height:1.5;letter-spacing:-.01em;">{{ p.desc }}</p>
+              <div style="display:{{ p.youtubeDisplay }};position:relative;padding-bottom:56.25%;height:0;overflow:hidden;margin-bottom:32px;background:rgba(237,234,244,.06);">
+                <iframe src="{{ p.youtubeEmbed }}" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="allowfullscreen"></iframe>
+              </div>
               <div style="columns:3 250px;column-gap:14px;">
                 <sc-for list="{{ p.images }}" as="im" hint-placeholder-count="4">
                   <div style="break-inside:avoid;margin:0 0 14px;background:rgba(237,234,244,.06);overflow:hidden;">
@@ -193,17 +196,17 @@ class Component extends DCLogic {
       context:'Music Visual',
       role:'Shot\nArt Direction\nStyling',
       desc:'A teaser snippet created for a music project, focused on atmosphere, movement and emotionally charged imagery through minimal but visually intense direction.',
-      cover:'img_p15_1', images:['img_p15_1','img_p16_1','img_p16_2','img_p16_3','img_p16_4'] },
+      cover:'img_p15_1', images:['img_p15_1','img_p16_1','img_p16_2','img_p16_3','img_p16_4'], youtubeId:'rTdWiI9Ygoo' },
     { id:'pain', no:'07', title:'Pain \u2014 Teaser',
       context:'Music Visual',
       role:'Art Direction\nVideo Edit',
       desc:'A teaser made for an upcoming song release.',
-      cover:'img_p17_2', images:['img_p17_2','img_p17_1'] },
+      cover:'img_p17_2', images:['img_p17_2','img_p17_1'], youtubeId:'6_9lGqUMu3g' },
     { id:'christiane', no:'08', title:'Christiane F.',
       context:'Music Video',
       role:'Art Direction\nStyling',
       desc:'A music video exploring isolation, nightlife and emotional tension through dark cinematic imagery and fragmented storytelling.',
-      cover:'img_p19_3', images:['img_p19_3','img_p18_1','img_p19_1','img_p19_2','img_p19_4'] },
+      cover:'img_p19_3', images:['img_p19_3','img_p18_1','img_p19_1','img_p19_2','img_p19_4'], youtubeId:'GQsYdNssKQc' },
   ];
 
   digital = [
@@ -317,6 +320,8 @@ class Component extends DCLogic {
       panelMax: open === p.id ? '4000px' : '0px',
       openAttr: open === p.id ? '1' : '0',
       onToggle: () => this.setState((s) => ({ open: s.open === p.id ? null : p.id })),
+      youtubeEmbed: p.youtubeId ? 'https://www.youtube.com/embed/' + p.youtubeId : '',
+      youtubeDisplay: p.youtubeId ? 'block' : 'none',
     });
     return {
       statement: this.props.statement ?? 'Paris-based creative working across fashion imagery, styling, music visuals and experimental direction \u2014 interested in emotional image-making, atmosphere and visual storytelling.',
