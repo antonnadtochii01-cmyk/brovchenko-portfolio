@@ -77,8 +77,12 @@ body{margin:0;background:#0B0A0F;}
             <span></span>
             <div>
               <p style="max-width:60ch;margin:0 0 32px;font-family:'Bricolage Grotesque',sans-serif;font-size:clamp(16px,1.5vw,21px);line-height:1.5;letter-spacing:-.01em;">{{ p.desc }}</p>
-              <div style="display:{{ p.videoDisplay }};margin-bottom:32px;background:rgba(237,234,244,.06);overflow:hidden;">
-                <video src="{{ p.videoSrc }}" controls preload="metadata" style="display:block;width:100%;height:auto;max-height:70vh;"></video>
+              <div style="display:{{ p.clipsDisplay }};columns:{{ p.clipsColumns }};column-gap:14px;margin-bottom:14px;">
+                <sc-for list="{{ p.clips }}" as="cl">
+                  <div style="break-inside:avoid;margin:0 0 14px;background:#0B0A0F;overflow:hidden;">
+                    <video src="{{ cl.src }}" autoplay="autoplay" muted="muted" loop="loop" playsinline="playsinline" controls="controls" data-autovid="1" style="display:block;width:100%;height:auto;"></video>
+                  </div>
+                </sc-for>
               </div>
               <div style="columns:3 250px;column-gap:14px;">
                 <sc-for list="{{ p.images }}" as="im" hint-placeholder-count="4">
@@ -176,12 +180,12 @@ class Component extends DCLogic {
       context:'For Valentino — Campaign Concept',
       role:'Art Direction\nAI Video\nVideo Editing',
       desc:'A university project created for Valentino, based on the campaign concept \u201CCustodi\u201D. The work explores luxury through memory and emotional value, presenting the Panthea bag as a symbolic guardian of personal objects and memories.',
-      cover:'img_p6_1', images:['img_p6_1','img_p5_1','img_p6_2','img_p6_3'], videoSrc:'videos/custodi.mp4' },
+      cover:'img_p6_1', images:[], clips:['videos/custodi_1.mp4','videos/custodi_2.mp4','videos/custodi_3.mp4','videos/custodi_4.mp4'], clipsLayout:'grid' },
     { id:'diesel', no:'03', title:'Diesel \u00D7 Dust',
       context:'For Diesel & DUST Magazine',
       role:'Art Direction\nStyling\nVideo Edit',
       desc:'Created for Diesel and DUST Magazine, this project explores fashion consumption and visual standardization through packaging aesthetics, object presentation and still-life storytelling. The outcome combined two video pieces and a printed flipbook publication of editorial sequencing and motion-based storytelling.',
-      cover:'img_p8_1', images:['img_p8_1','img_p7_1','img_p8_2','img_p8_3','img_p8_4','img_p9_1','img_p9_2','img_p9_3','img_p9_4','img_p9_5','img_p9_6'], videoSrc:'videos/diesel.mp4' },
+      cover:'img_p8_1', images:['img_p8_1','img_p7_1','img_p8_2','img_p8_3','img_p8_4','img_p9_1','img_p9_2','img_p9_3','img_p9_4','img_p9_5','img_p9_6'], clips:['videos/diesel.mp4','videos/diesel_social.mp4'], clipsLayout:'stack' },
     { id:'punk', no:'04', title:'Punk Revival',
       context:'Creative Work',
       role:'Art Direction\nStyling',
@@ -231,8 +235,19 @@ class Component extends DCLogic {
   componentDidMount() {
     this._setAccent();
     this._initFx();
+    this._initVideos();
   }
-  componentDidUpdate() { this._setAccent(); }
+  componentDidUpdate() {
+    this._setAccent();
+    this._initVideos();
+  }
+
+  _initVideos() {
+    document.querySelectorAll('video[data-autovid]').forEach(v => {
+      v.muted = true;
+      v.play().catch(() => {});
+    });
+  }
 
   _initFx() {
     if (this._fx) return; this._fx = true;
@@ -325,8 +340,9 @@ class Component extends DCLogic {
       onToggle: () => this.setState((s) => ({ open: s.open === p.id ? null : p.id })),
       youtubeEmbed: p.youtubeId ? 'https://www.youtube.com/embed/' + p.youtubeId : '',
       youtubeDisplay: p.youtubeId ? 'block' : 'none',
-      videoSrc: p.videoSrc || '',
-      videoDisplay: p.videoSrc ? 'block' : 'none',
+      clips: (p.clips || []).map(s => ({ src: s })),
+      clipsDisplay: p.clips && p.clips.length ? 'block' : 'none',
+      clipsColumns: p.clipsLayout === 'grid' ? '2 300px' : '1',
     });
     return {
       statement: this.props.statement ?? 'Paris-based creative working across fashion imagery, styling, music visuals and experimental direction \u2014 interested in emotional image-making, atmosphere and visual storytelling.',
