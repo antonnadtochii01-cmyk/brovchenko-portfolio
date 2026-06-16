@@ -1,0 +1,11 @@
+{
+  "name": "brovchenko-portfolio",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "serve . --listen $PORT --no-clipboard"
+  },
+  "dependencies": {
+    "serve": "^14.2.3"
+  }
+}
